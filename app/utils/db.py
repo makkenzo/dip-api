@@ -6,6 +6,6 @@ load_dotenv()
 
 
 def get_products():
-    client = motor_asyncio.AsyncIOMotorClient(os.getenv["DIP_MONGO_URI"])["main"]
+    client = motor_asyncio.AsyncIOMotorClient(os.environ["DIP_MONGO_URI"])["main"]
 
     return client["products"]
