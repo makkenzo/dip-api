@@ -1,3 +1,4 @@
+from bson import ObjectId
 from fastapi import APIRouter
 from ..utils.db import get_products
 from fastapi import APIRouter, Query
@@ -24,5 +25,20 @@ async def get_all_products(page: int = Query(1, ge=1), limit: int = Query(4, ge=
         products = [{**product, "_id": str(product["_id"])} for product in products_cursor]
 
         return {"data": products, "count": len(products)}
+    except Exception as e:
+        return {"error": f"{e}"}
+
+
+@router.get("/get-product/{product_id}")
+async def get_product(product_id: str):
+    try:
+        db_products = get_products()
+        product = await db_products.find_one({"_id": ObjectId(product_id)})
+
+        if product:
+            product["_id"] = str(product["_id"])
+            return {"data": product}
+        else:
+            return {"error": "Product not found"}
     except Exception as e:
         return {"error": f"{e}"}
