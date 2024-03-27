@@ -1,16 +1,16 @@
-from bson import ObjectId
-from fastapi import APIRouter
-from ..utils.db import get_products
-from fastapi import APIRouter, Query
-from typing import List
+from fastapi import APIRouter, Request
+
+from ..models.auth import RegistrationModel
 
 
 router = APIRouter(prefix="/auth", tags=["Authorization"])
 
 
 @router.post("/sign-up")
-async def sign_up():
+async def sign_up(req: Request, req_body: RegistrationModel):
     try:
+        body = req_body.dict()
+        print(body)
         return {"message": "ok"}
     except Exception as e:
         return {"error": f"{e}"}
