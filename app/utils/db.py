@@ -9,3 +9,9 @@ def get_products():
     client = motor_asyncio.AsyncIOMotorClient(os.environ["DIP_MONGO_URI"])["main"]
 
     return client["products"]
+
+
+def get_users_db():
+    client = motor_asyncio.AsyncIOMotorClient(os.environ["DIP_MONGO_URI"])["main"]
+
+    return client["users"]
