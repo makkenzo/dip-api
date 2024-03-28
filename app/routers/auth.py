@@ -28,6 +28,7 @@ async def webhook_handler(req: Request, response: Response):
             "first_name": msg["data"]["first_name"],
             "last_name": msg["data"]["last_name"],
             "username": msg["data"]["username"],
+            "uid": msg["data"]["id"],
         }
 
         user_in_db = await db_users.find_one({"email": data["email"]})

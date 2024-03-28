@@ -1,8 +1,7 @@
 from bson import ObjectId
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from ..utils.db import get_products
 from fastapi import APIRouter, Query
-from typing import List
 
 
 router = APIRouter(prefix="/products", tags=["Products"])
