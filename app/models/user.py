@@ -3,4 +3,5 @@ from pydantic import BaseModel
 
 
 class AddToCartModel(BaseModel):
-    uid: str
+    item_id: str
+    user_id: str
