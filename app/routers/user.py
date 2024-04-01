@@ -52,3 +52,20 @@ async def get_cart(req: Request, uid: str):
             return JSONResponse(content={"message": "User not found"}, status_code=400)
     except Exception as e:
         return JSONResponse(content={"message": str(e)}, status_code=500)
+
+
+@router.delete("/remove-from-cart/{user_id}/{item_id}")
+async def remove_from_cart(req: Request, user_id: str, item_id: str):
+    try:
+        users = get_users_db()
+
+        user = await users.find_one({"uid": user_id})
+
+        if user is not None:
+            await users.update_one({"uid": user_id}, {"$pull": {"cart": item_id}})
+
+            return JSONResponse(content={"message": "Item removed from cart successfully"}, status_code=200)
+        else:
+            return JSONResponse(content={"message": "User not found"}, status_code=400)
+    except Exception as e:
+        return JSONResponse(content={"message": str(e)}, status_code=500)
